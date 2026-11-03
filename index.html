@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kariyer ve İletişim Becerileri Ders Portalı</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --success: #2ecc71;
+            --bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --text: #333333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #34495e;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            flex-wrap: wrap;
+        }
+
+        nav button {
+            background: none;
+            border: none;
+            color: white;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        nav button:hover, nav button.active {
+            background-color: var(--secondary);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        h1, h2, h3 {
+            color: var(--primary);
+        }
+
+        .summary-section {
+            margin-bottom: 2rem;
+        }
+
+        .summary-section h3 {
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 0.5rem;
+            margin-top: 1.5rem;
+        }
+
+        ul {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Quiz Stilleri */
+        .quiz-container {
+            margin-top: 2rem;
+            border-top: 2px dashed #ccc;
+            padding-top: 2rem;
+        }
+
+        .question-card {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .question-text {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .option-btn {
+            background-color: #f1f2f6;
+            border: 1px solid #ced6e0;
+            border-radius: 4px;
+            padding: 0.8rem 1rem;
+            text-align: left;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-btn:hover:not([disabled]) {
+            background-color: #dfe4ea;
+        }
+
+        .option-btn.correct {
+            background-color: var(--success) !important;
+            color: white !important;
+            border-color: #27ae60 !important;
+            font-weight: bold;
+        }
+
+        .option-btn.incorrect {
+            background-color: var(--accent) !important;
+            color: white !important;
+            border-color: #c0392b !important;
+            font-weight: bold;
+        }
+
+        .explanation {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: #ffeaa7;
+            border-left: 4px solid #fdcb6e;
+            border-radius: 4px;
+            color: #2d3436;
+            font-size: 0.9rem;
+        }
+
+        .score-board {
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            padding: 1rem;
+            background: var(--secondary);
+            color: white;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Ders Çalışma ve Hazırlık Portalı</h1>
+        <p>Kariyer Gelişimi, Beceriler, İletişim ve Diksiyon Ders Notları ve Testleri</p>
+    </header>
+
+    <nav>
+        <button class="nav-btn active" onclick="openTab('hafta1')">1. Hafta: Kariyer</button>
+        <button class="nav-btn" onclick="openTab('hafta2')">2. Hafta: Beceriler</button>
+        <button class="nav-btn" onclick="openTab('hafta3')">3. Hafta: İletişim</button>
+        <button class="nav-btn" onclick="openTab('hafta4')">4. Hafta: Diksiyon</button>
+        <button class="nav-btn" onclick="openTab('genelTest')">Genel Değerlendirme Testi</button>
+    </nav>
+
+    <div class="container">
+
+        <!-- 1. HAFTA -->
+        <div id="hafta1" class="tab-content active">
+            <div class="card">
+                <h2>1. Hafta: Kariyer ve Kariyerle İlgili Temel Kavramlar</h2>
+                <div class="summary-section">
+                    <h3>1. Temel Kavram Tanımları</h3>
+                    <ul>
+                        <li><strong>İş:</strong> Geçim sağlamak amacıyla herhangi bir alanda yapılan, emeğin karşılığının maddi olarak alındığı çalışmadır.</li>
+                        <li><strong>Meslek:</strong> Belli bir eğitimle kazanılan sistemli bilgi ve becerilere dayalı, kuralları toplumca belirlenmiş geniş etkinlikler bütünüdür. Aynı mesleğe sahip kişiler farklı işler yapabilir (örneğin bir doktorun klinik araştırmacı veya hekim olması).</li>
+                        <li><strong>Kariyer:</strong> Seçilen bir meslekte ilerleyerek daha fazla sorumluluk, gelir, statü ve saygınlık elde etmektir. Bireyin çalışma yaşamı boyunca üstlendiği iş ve pozisyonların bütünüdür.</li>
+                    </ul>
+
+                    <h3>2. Yaşam Dönemleri ve Kariyer Aşamaları</h3>
+                    <ul>
+                        <li><strong>Büyüme (4-13 Yaş):</strong> İş dünyasına dair temel anlayış ve benlik tasarımı geliştirme.</li>
+                        <li><strong>Keşfetme / Oluşum (14-24 Yaş):</strong> Meslekler hakkında bilgi edinme, ilgi/yetenekleri fark etme ve iş hayatına giriş.</li>
+                        <li><strong>Yerleşme / Gelişme (25-45 Yaş):</strong> Belirlenen alanda karar kılma, uzmanlaşma, mevkisini sağlamlaştırma ve ilerleme.</li>
+                        <li><strong>Sürdürme (45-65 Yaş):</strong> Kazanılan konumu koruma, yenilikleri güncelleme; zaman zaman "kariyer platosu" (durağanlık) görülebilir.</li>
+                        <li><strong>Kariyer Sonu / Ayrılma (65+ Yaş):</strong> Emeklilik planlaması, fiziksel yavaşlama ve danışmanlık/öğretici rollere geçiş.</li>
+                    </ul>
+
+                    <h3>3. Kariyer Yaklaşımları</h3>
+                    <ul>
+                        <li><strong>Geleneksel Kariyer Yaklaşımı:</strong> Tek veya birkaç örgütte, dikey/hiyerarşik olarak ilerlemeyi esas alır. Başarı ölçütü terfi, ücret artışı ve statüdür.</li>
+                        <li><strong>Sınırsız Kariyer (Boundaryless):</strong> Örgütsel sınırları aşan, tek bir şirkete bağımlı kalmadan farklı kurum ve projelerde deneyim kazanmayı ifade eder. Anahtar kavram: İstihdam edilebilirlik.</li>
+                        <li><strong>Çok Yönlü Kariyer (Protean):</strong> Yönetimi tamamen bireyde olan, kişisel değerler ve psikolojik başarının (içsel tatmin) ön planda olduğu esnek modeldir.</li>
+                        <li><strong>Portföy Kariyer:</strong> Bireyin tek bir işverene bağlı kalmadan birden çok müşteri için eş zamanlı proje/uzmanlık sunmasıdır (Üç Yapraklı Yonca modeli: Kadrolu, Geçici ve Sözleşmeli uzman çalışanlar).</li>
+                    </ul>
+
+                    <h3>4. Bireysel Kariyer Planlama Aşamaları</h3>
+                    <p>Öz Değerleme (Güçlü/Zayıf yönler) &rarr; Fırsatları Belirleme (Sektör incelemesi) &rarr; Hedef Belirleme (Kısa/Uzun vadeli) &rarr; Plan Hazırlama &rarr; Geri Bildirim (Değerlendirme).</p>
+                </div>
+
+                <div class="quiz-container">
+                    <h3>1. Hafta Konu Testi (10 Soru)</h3>
+                    <div id="quiz-hafta1"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. HAFTA -->
+        <div id="hafta2" class="tab-content">
+            <div class="card">
+                <h2>2. Hafta: İnce Yetenekler (Soft Skills) ve Teknik Beceriler (Hard Skills)</h2>
+                <div class="summary-section">
+                    <h3>1. Teknik Beceriler (Hard Skills)</h3>
+                    <ul>
+                        <li>Belirli bir alana özgü, öğretilebilir, didaktik, ölçülebilir ve somut yeteneklerdir.</li>
+                        <li>Diplomalar, sertifikalar, kodlama bilgisi, veri analizi ve matematiksel uzmanlıklar bu kapsama girer. Duygusal veya iletişimsel ögeler içermez.</li>
+                    </ul>
+
+                    <h3>2. İnce Beceriler (Soft Skills)</h3>
+                    <ul>
+                        <li>Soyut, kişisel alışkanlıklar ve kişilerarası ilişkilerle ilgili, ölçülmesi daha zor olan davranışsal becerilerdir.</li>
+                        <li>Günümüz iş dünyasında bilgiye ulaşım kolaylaştığı için adayları rakiplerinden ayıran temel ögedir.</li>
+                    </ul>
+
+                    <h3>3. Öne Çıkan Top 6 İnce Beceri Alanı</h3>
+                    <ul>
+                        <li><strong>İletişim Becerileri:</strong> Yazılı/sözel aktarım, hikaye anlatıcılığı, beden dili kullanımı ve etkin dinleme.</li>
+                        <li><strong>Takım Çalışması:</strong> Geri bildirime açık olma, empati, çeşitlilik bilinci ve ortak hedefe uyum sağlama.</li>
+                        <li><strong>Liderlik:</strong> Kritik anlarda karar alabilme, özgüven, ekibe ilham verme ve kriz yönetimi.</li>
+                        <li><strong>Analitik Düşünme:</strong> Merak, gözlem, problem çözme ve mantıksal kararlar alma.</li>
+                        <li><strong>İş Ahlakı:</strong> Zaman yönetimi, dakiklik, sorumluluk bilinci, stres yönetimi ve özveri.</li>
+                        <li><strong>Pozitif Tutum:</strong> Saygı, mizah anlayışı, samimiyet ve yüksek iş-yaşam dengesi.</li>
+                    </ul>
+                </div>
+
+                <div class="quiz-container">
+                    <h3>2. Hafta Konu Testi (10 Soru)</h3>
+                    <div id="quiz-hafta2"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. HAFTA -->
+        <div id="hafta3" class="tab-content">
+            <div class="card">
+                <h2>3. Hafta: Temel İletişim Becerileri ve İletişim Hataları</h2>
+                <div class="summary-section">
+                    <h3>1. İletişim Tanımı ve Temel Unsurları</h3>
+                    <p>Gönderici ve alıcı arasında bilgi, duygu, düşünce ve fikirlerin aktarılmasıyla ortak bir anlam yaratma sürecidir.</p>
+                    <ul>
+                        <li><strong>Gönderici (Kaynak):</strong> Mesajı oluşturan unit.</li>
+                        <li><strong>İleti (Mesaj):</strong> İletişimin içeriği.</li>
+                        <li><strong>Kanal (Araç):</strong> Sunuluş biçimi (sözlü, yazılı, sözsüz).</li>
+                        <li><strong>Alıcı (Hedef):</strong> Mesajın ulaştığı kişi.</li>
+                        <li><strong>Dönüt (Geri Bildirim):</strong> Alıcının verdiği tepki.</li>
+                    </ul>
+
+                    <h3>2. İletişim Türleri ve Etkileri (Mehrabian Modeli)</h3>
+                    <ul>
+                        <li><strong>Sözsüz İletişim (%55 Etki):</strong> Beden dili, jestler, mimikler, göz teması ve duruş. İletişimin ana belirleyicisidir.</li>
+                        <li><strong>Ses ve Konuşma (%38 Etki):</strong> Ses tonu, vurgu, tonlama ve hız.</li>
+                        <li><strong>Sözcükler / Sözlü İletişim (%7 Etki):</strong> Konuşulan içerik ve kelime seçimi.</li>
+                        <li><strong>Yazılı İletişim:</strong> Zaman/mekan sınırını kaldıran, kontrol imkanı sunan resmi aktarımlar.</li>
+                    </ul>
+
+                    <h3>3. Sen Dili vs. Ben Dili</h3>
+                    <ul>
+                        <li><strong>Sen Dili:</strong> Suçlayıcı, kişiliğe yönelik, savunma mekanizmasını tetikleyen ve iletişimi tıkayan ifadelere denir (Örn: "Sürekli sözümü kesiyorsun!").</li>
+                        <li><strong>Ben Dili:</strong> Davranışa odaklanan, kişinin kendi duygu ve düşüncesini incitmeden aktardığı yapıcı dildir (Örn: "Sözüm kesildiğinde anlatacaklarımı toparlamakta zorlanıyorum.").</li>
+                    </ul>
+
+                    <h3>4. Sık Yapılan İletişim Hataları</h3>
+                    <p>Suçlama, Savunmacı tutum, Küçümseme, Etiketleme/İsim takma, Pasif saldırganlık (surat asma), Zihin okuma, Tehdit etme, Söz kesme ve Göz temasından kaçınma.</p>
+                </div>
+
+                <div class="quiz-container">
+                    <h3>3. Hafta Konu Testi (10 Soru)</h3>
+                    <div id="quiz-hafta3"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. HAFTA -->
+        <div id="hafta4" class="tab-content">
+            <div class="card">
+                <h2>4. Hafta: Diksiyon ve Beden Dili</h2>
+                <div class="summary-section">
+                    <h3>1. Diksiyonun Temel Kavramları</h3>
+                    <ul>
+                        <li><strong>Diksiyon:</strong> Seslerin, sözcüklerin ve yardımcı ögelerin (tonlama, vurgu, beden dili) yerli yerinde kullanılması sanatıdır. Türkiye'de İstanbul ağzı esas alınır.</li>
+                        <li><strong>Lehçe:</strong> Bir dilin tarihsel ve siyasal nedenlerle ses/yapı bakımından çok eskiden ayrılmış koludur (Örn: Çuvaşça, Yakutça).</li>
+                        <li><strong>Şive:</strong> Bir dilin izlenebilen dönemlerinde ayrılan üslup farklarıdır (Örn: Azerice, Özbekçe).</li>
+                        <li><strong>Ağız:</strong> Bir ülke sınırları içinde bölgelere göre değişen söyleyiş farkıdır (Örn: Erzurum ağzı, Trabzon ağzı).</li>
+                    </ul>
+
+                    <h3>2. Diksiyonun Ana Unsurları</h3>
+                    <ul>
+                        <li><strong>Diyafram Nefesi:</strong> Doğru nefes alma şeklidir (bebek nefesi). Nefes alırken karın dışarı genişler, verirken içeri çekilir.</li>
+                        <li><strong>Durak:</strong> Soluk alma ve anlam öbeklerini ayırma aralarıdır. Konuşmanın ritmini düzenler ve yorulmayı önler.</li>
+                        <li><strong>Vurgu:</strong> Bir kelime veya hecenin daha belirgin söylenmesidir. Türkçede fonemiktir (anlam değiştiricidir; Örn: Düşünce / Düşünce).</li>
+                    </ul>
+
+                    <h3>3. Beden Dili İpuçları ve Kaçınılacak Hareketler</h3>
+                    <ul>
+                        <li><strong>El Saklama:</strong> Sol el saklamak kişisel duyguları; sağ el saklamak iş hayatıyla ilgili bilgileri gizleme eğilimidir.</li>
+                        <li><strong>Kolları Kavuşturmak:</strong> İletişime kapalılık, rahatsızlık veya kendini koruma hissi yansıtır.</li>
+                        <li><strong>El Sıkışma Türleri:</strong> Üstte kalan avuç (Hakimiyet/Baskınlık), altta kalan avuç (Teslimiyet), dikey ve dengeli (Eşitlik/Güven).</li>
+                        <li><strong>Bakış Türleri:</strong> Resmi/İş bakışı (İki göz ve alın üçgeni), Sosyal bakış (Gözler ve burun/ağız üçgeni), Mahrem bakış (Gözler ve göğüs bölgesi).</li>
+                        <li><strong>Göz Bebekleri:</strong> Kontrol edilemeyen tek organdır. Hoşlanılan durumlarda %450 oranına kadar büyüyecektir.</li>
+                    </ul>
+                </div>
+
+                <div class="quiz-container">
+                    <h3>4. Hafta Konu Testi (10 Soru)</h3>
+                    <div id="quiz-hafta4"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- GENEL TEST -->
+        <div id="genelTest" class="tab-content">
+            <div class="card">
+                <h2>Genel Değerlendirme Testi (20 Soru)</h2>
+                <p>Tüm konuları içeren 20 soruluk kapsamlı test. Başarılar!</p>
+                <div class="score-board" id="final-score" style="display:none;"></div>
+                <div class="quiz-container">
+                    <div id="quiz-genel"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Tab Yönetimi
+        function openTab(tabId) {
+            const contents = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.nav-btn');
+            
+            contents.forEach(content => content.classList.remove('active'));
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        // SORU VERİTABANLARI
+        const questionsHafta1 = [
+            {
+                q: "1. Kişinin çalışma yaşamı boyunca üstlendiği iş, pozisyon ve deneyimlerin tamamına ne ad verilir?",
+                options: ["A) Meslek", "B) İş", "C) Kariyer", "D) Unvan"],
+                answer: 2,
+                exp: "Kariyer, kişinin çalışma yaşamı boyunca ilerlediği, deneyim kazandığı iş ve pozisyonların bütünüdür."
+            },
+            {
+                q: "2. Super'in kariyer aşamalarına göre 25-45 yaş aralığı hangi döneme denk gelir?",
+                options: ["A) Keşfetme", "B) Yerleşme / Gelişme", "C) Sürdürme", "D) Büyüme"],
+                answer: 1,
+                exp: "25-45 yaş aralığı 'Yerleşme/Gelişme' aşamasıdır; birey mesleğinde karar kılar ve konumunu sağlamlaştırır."
+            },
+            {
+                q: "3. Örgütsel hiyerarşide dikey yükselmeyi, statü ve maaş artışını temel alan kariyer yaklaşımı hangisidir?",
+                options: ["A) Çok Yönlü Kariyer", "B) Sınırsız Kariyer", "C) Geleneksel Kariyer", "D) Portföy Kariyer"],
+                answer: 2,
+                exp: "Geleneksel kariyer yaklaşımı dikey hiyerarşik yükselmeyi ve örgütsel bağlılığı esas alır."
+            },
+            {
+                q: "4. Kariyer yönetimini tamamen bireyin üstlendiği, psikolojik başarının ön planda olduğu model hangisidir?",
+                options: ["A) Protean (Çok Yönlü) Kariyer", "B) Geleneksel Kariyer", "C) Sınırlı Kariyer", "D) Statik Kariyer"],
+                answer: 0,
+                exp: "Protean (Çok Yönlü) kariyerde kontrol bireydedir ve başarı ölçütü içsel/psikolojik tatmindir."
+            },
+            {
+                q: "5. Charles Handy'nin 'Üç Yapraklı Yonca' modeli hangi kariyer yaklaşımı ile doğrudan ilgilidir?",
+                options: ["A) Geleneksel Kariyer", "B) Portföy Kariyer", "C) Yatay Kariyer", "D) Dikey Kariyer"],
+                answer: 1,
+                exp: "Portföy kariyer, kadrolu, geçici ve sözleşmeli (uzman) çalışanların oluşturduğu Üç Yapraklı Yonca modeliyle açıklanır."
+            },
+            {
+                q: "6. Bireysel kariyer planlamasının ilk ve en önemli aşaması aşağıdakilerden hangisidir?",
+                options: ["A) Hedef Belirleme", "B) Fırsatları Değerlendirme", "C) Öz Değerleme (Kendini Değerlendirme)", "D) Geri Bildirim"],
+                answer: 2,
+                exp: "Kariyer planlaması bireyin kendi güçlü/zayıf yönlerini, ilgilerini analiz ettiği 'Öz Değerleme' ile başlar."
+            },
+            {
+                q: "7. Sınırsız kariyer anlayışında iş güvencesinin yerini hangi kavram almıştır?",
+                options: ["A) Örgütsel Sadakat", "B) İstihdam Edilebilirlik", "C) Dikey Terfi", "D) Emeklilik Garantisi"],
+                answer: 1,
+                exp: "Sınırsız kariyerde tek bir şirkette ömür boyu kalma garantisi yerine 'istihdam edilebilirlik' (becerilerini güncel tutarak işte kalabilme) önemlidir."
+            },
+            {
+                q: "8. Tıp fakültesi mezunu bir kişinin ilaç firmasında direktör olması meslek ile iş arasındaki hangi farkı gösterir?",
+                options: ["A) Mesleğin işten daha kısa sürdüğünü", "B) Aynı mesleğe sahip kişilerin farklı işler yapabileceğini", "C) İşin eğitim gerektirmediğini", "D) Kariyerin sadece tıpta olduğunu"],
+                answer: 1,
+                exp: "Meslek alınan eğitimle kazanılan unvandır; bu unvanla farklı kurum ve alanlarda çeşitli 'işler' yürütülebilir."
+            },
+            {
+                q: "9. Kariyer gelişiminde kişinin becerilerini güncellemesi gereken, 45-65 yaş arası aşama hangisidir?",
+                options: ["A) Keşfetme", "B) Büyüme", "C) Sürdürme", "D) Ayrılma"],
+                answer: 2,
+                exp: "45-65 yaş arası 'Sürdürme' dönemidir. Kişi konumunu korur, ustalaşır ve bilgilerini günceller."
+            },
+            {
+                q: "10. Aşağıdakilerden hangisi yeni kariyer yaklaşımlarının ortaya çıkma nedenlerinden biri DEĞİLDİR?",
+                options: ["A) İş güvencesinin azalması", "B) Örgütlerin daha esnek ve yatay hale gelmesi", "C) Geleneksel dikey hiyerarşilerin güçlenmesi", "D) Alternatif çalışma modellerinin yaygınlaşması"],
+                answer: 2,
+                exp: "Geleneksel dikey hiyerarşilerin zayıflaması yeni yaklaşımları doğurmuştur; hiyerarşinin güçlenmesi söz konusu değildir."
+            }
+        ];
+
+        const questionsHafta2 = [
+            {
+                q: "1. Aşağıdakilerden hangisi bir 'Hard Skill' (Teknik Beceri) örneğidir?",
+                options: ["A) Takım çalışmasına yatkınlık", "B) Python ile veri analizi yapabilme", "C) Empati kurabilme", "D) Stres yönetimi"],
+                answer: 1,
+                exp: "Python ile veri analizi yapmak öğretilebilir, ölçülebilir ve somut bir teknik beceridir (Hard Skill)."
+            },
+            {
+                q: "2. Soyut, ölçülmesi zor, kişisel alışkanlıklar ve kişilerarası ilişkileri kapsayan becerilere ne ad verilir?",
+                options: ["A) Soft Skills (İnce Beceriler)", "B) Hard Skills", "C) Akademik Beceriler", "D) Didaktik Yetenekler"],
+                answer: 0,
+                exp: "Kişilerarası ilişkiler, iletişim ve davranışsal özellikler Soft Skills (İnce Beceriler) olarak adlandırılır."
+            },
+            {
+                q: "3. Aşağıdakilerden hangisi İnce Becerilerin (Soft Skills) özelliklerinden biridir?",
+                options: ["A) Sertifika veya diplomayla somut kanıtlanırlar", "B) İletişimsel ve duygusal ögeler içermezler", "C) İş hayatında insanları pozitif etkileme biçiminizle ilgilidir", "D) Sadece matematiksel yetenekleri kapsarlar"],
+                answer: 2,
+                exp: "Soft skills kişisel tutumlar ve insan ilişkilerini pozitif yönetebilme yeteneğidir."
+            },
+            {
+                q: "4. Bir çalışanın zamanında işe gelmesi, planlı ve sorumluluk sahibi olması hangi ince beceriyle açıklanır?",
+                options: ["A) Hikaye Anlatıcılığı", "B) Güçlü İş Ahlakı", "C) Ağ Kurma (Networking)", "D) İnovatif Tasarım"],
+                answer: 1,
+                exp: "Dakiklik, özveri ve sorumluluk bilinci 'İş Ahlakı' alt başlığında değerlendirilir."
+            },
+            {
+                q: "5. İşe alım uzmanlarının günümüzde Soft Skills'e daha fazla önem vermesinin temel sebebi nedir?",
+                options: ["A) Teknik bilginin artık hiç gerekmemesi", "B) Bilgiye ulaşmanın kolaylaşması ve uyum/ilişki becerilerinin fark yaratması", "C) Diplomasız çalışan arayışı", "D) Soft skills'in testlerle daha kolay ölçülmesi"],
+                answer: 1,
+                exp: "Teknik bilgi eğitime tabidir ancak davranışsal beceriler ve uyum (Soft Skills) fark yaratan ana faktördür."
+            },
+            {
+                q: "6. Eleştirilere açık olmak, işbirlikçi davranmak ve farklılıklara saygı duymak hangi alanın gereğidir?",
+                options: ["A) Bireysel Çalışma", "B) Takım Çalışması", "C) Hard Skills", "D) Bütçe Yönetimi"],
+                answer: 1,
+                exp: "Geri bildirimi kabul etme ve çeşitlilik bilinci Etkili Takım Çalışmasının temel taşlarındandır."
+            },
+            {
+                q: "7. Sorunlar karşısında şikayet etmek yerine çözüm üretebilen, meraklı ve gözlemci bireyler hangi beceriye sahiptir?",
+                options: ["A) Analitik Düşünme", "B) Otoriter Liderlik", "C) Rutin Çalışma", "D) Monoton Tutum"],
+                answer: 0,
+                exp: "Analitik düşünme yetisi olan kişiler meraklıdır, gözlem yapar ve mantıksal çözümler üretir."
+            },
+            {
+                q: "8. Hangisi Soft Skills geliştirme yollarından biri OLAMAZ?",
+                options: ["A) Gönüllülük projelerine katılmak", "B) Diksiyon ve sunum dersleri almak", "C) Kendini dış dünyaya tamamen kapatıp sadece kod yazmak", "D) Stres yönetimi ve meditasyon yapmak"],
+                answer: 2,
+                exp: "İzolasyon sosyal ve iletişimsel becerileri (Soft Skills) geliştirmek yerine köreltir."
+            },
+            {
+                q: "9. Liderlik becerisiyle ilgili doğru ifade aşağıdakilerden hangisidir?",
+                options: ["A) Sadece resmi yöneticilik unvanı olanlarda bulunur", "B) Sadece denileni eksiksiz yaptırmaktır", "C) Başkalarına ilham verme ve kriz anında karar alabilmedir", "D) Hard skill kategorisinde yer alır"],
+                answer: 2,
+                exp: "Liderlik unvandan bağımsız olarak karar alma, yön gösterme ve ilham verme yeteneğidir."
+            },
+            {
+                q: "10. 'Yeterlilik Belgeleri', 'Sertifikalar' ve 'Lisans Diplomaları' hangi beceri grubuna örnektir?",
+                options: ["A) Soft Skills", "B) Hard Skills", "C) Duygusal Beceriler", "D) Sosyal Beceriler"],
+                answer: 1,
+                exp: "Belgelenebilir, resmi ve didaktik uzmanlıklar Hard Skills (Teknik Beceri) sınıfındadır."
+            }
+        ];
+
+        const questionsHafta3 = [
+            {
+                q: "1. Mehrabian araştırmasına göre yüz yüze iletişimde Beden Dilinin etkisi yüzde kaçtır?",
+                options: ["A) %7", "B) %38", "C) %55", "D) %80"],
+                answer: 2,
+                exp: "İletişimde beden dilinin etkisi %55, ses tonunun %38, kelimelerin ise %7'dir."
+            },
+            {
+                q: "2. Alıcının göndericinin mesajına verdiği yanıt veya tepkiye ne ad verilir?",
+                options: ["A) Kanal", "B) Dönüt (Geri Bildirim)", "C) Kodlama", "D) İleti"],
+                answer: 1,
+                exp: "Alıcının mesaja karşılık oluşturduğu tepki 'Dönüt' (Geri bildirim) olarak tanımlanır."
+            },
+            {
+                q: "3. 'Evi sürekli dağınık bırakıyorsun!' ifadesi yerine 'Ev dağınık olunca huzursuz oluyorum' demek neye örnektir?",
+                options: ["A) Sen Dili kullanımı", "B) Pasif Saldırganlık", "C) Ben Dili kullanımı", "D) Zihin Okuma"],
+                answer: 2,
+                exp: "Duygunun davranışa odaklanarak suçlamadan ifade edilmesi 'Ben Dili'dir."
+            },
+            {
+                q: "4. Aşağıdakilerden hangisi bir iletişim hatasıdır?",
+                options: ["A) Açık uçlu sorular sormak", "B) Empati kurmak", "C) Karşısındakinin yerine zihin okumaya çalışmak", "D) Etkili dinlemek"],
+                answer: 2,
+                exp: "Zihin okumak (karşısındakinin söylemeden anlamasını beklemek) yaygın bir iletişim hatasıdır."
+            },
+            {
+                q: "5. 'Sen dili' kullanmanın iletişimdeki temel olumsuz etkisi nedir?",
+                options: ["A) Karşı tarafı savunmaya itmesi ve kırıcı olması", "B) İletişimi çok hızlandırması", "C) Anlaşılırlığı artırması", "D) Empatiyi güçlendirmesi"],
+                answer: 0,
+                exp: "Sen dili kişiliği hedef aldığı için karşı tarafta savunma ve direnç oluşturur."
+            },
+            {
+                q: "6. İletişimde mesajın sunuluş biçimine (sözlü, yazılı, görsel) ne ad verilir?",
+                options: ["A) Kaynak", "B) Kanal", "C) Alıcı", "D) Hedef"],
+                answer: 1,
+                exp: "Mesajın iletildiği ortam veya araç 'Kanal' olarak adlandırılır."
+            },
+            {
+                q: "7. Aşağıdakilerden hangisi etkili bir dinleyicinin yapmaması gereken bir davranıştır?",
+                options: ["A) Konuşanın sözünü kesmemek", "B) Dinlerken kendi vereceği cevabı planlamaya odaklanmak", "C) Göz teması kurmak", "D) Açık uçlu sorularla diyalogu sürdürmek"],
+                answer: 1,
+                exp: "Dinlerken vereceği cevabı düşünmek odağı bozar ve mesajın kaçırılmasına yol açar."
+            },
+            {
+                q: "8. Kendini karşıdakinin yerine koyarak onun duygularını anlama becerisine ne denir?",
+                options: ["A) Sempati", "B) Empati", "C) Antipati", "D) Telepati"],
+                answer: 1,
+                exp: "Empati, olaylara başkasının bakış açısıyla bakabilme ve duygusunu anlama yetisidir."
+            },
+            {
+                q: "9. Karşı tarafı incitmek amacıyla 'zavallı', 'beceriksiz' gibi sıfatlar kullanmak hangi iletişim hatasıdır?",
+                options: ["A) Saptırma", "B) Etiketleme (İsim Takma)", "C) İnkâr", "D) Geri Bildirim"],
+                answer: 1,
+                exp: "Kişiye olumsuz sıfatlar yapıştırmak 'Etiketleme' hatasıdır."
+            },
+            {
+                q: "10. Yazılı iletişimin sözlü iletişime göre en büyük avantajı nedir?",
+                options: ["A) Beden dilini mükemmel aktarması", "B) Anında geri bildirim sağlaması", "C) Kalıcı olması, tekrar kontrol edilebilir ve düşünme imkanı sunması", "D) Hiç zaman almaması"],
+                answer: 2,
+                exp: "Yazılı iletişim metnin tekrar gözden geçirilmesine ve kayıt altına alınmasına imkan tanır."
+            }
+        ];
+
+        const questionsHafta4 = [
+            {
+                q: "1. Türkiye'de diksiyon eğitimlerinde esas alınan standart ağız hangisidir?",
+                options: ["A) Trabzon Ağzı", "B) Trakya Ağzı", "C) İzmir Ağzı", "D) İstanbul Ağzı"],
+                answer: 3,
+                exp: "Türk diksiyon standartlarında İstanbul konuşma ağzı öğretilir."
+            },
+            {
+                q: "2. Konuşma sırasında soluk alma ve dinlenme aralarına verilen isim nedir?",
+                options: ["A) Vurgu", "B) Durak", "C) Tonlama", "D) Boğumlama"],
+                answer: 1,
+                exp: "Durak, anlamı netleştiren ve soluklanmayı sağlayan konuşma aralarıdır."
+            },
+            {
+                q: "3. Bir dilin takip edilemeyen çok eski dönemlerinde ayrılan koluna ne denir (Örn: Çuvaşça)?",
+                options: ["A) Şive", "B) Ağız", "C) Lehçe", "D) Argo"],
+                answer: 2,
+                exp: "Tarihsel ve siyasal nedenlerle çok eski dönemlerde ayrılan kollara Lehçe denir."
+            },
+            {
+                q: "4. Doğru nefes alma egzersizlerinde kullanılan ana kas hangisidir?",
+                options: ["A) Göğüs kası", "B) Diyafram kası", "C) Boyun kası", "D) Sırt kası"],
+                answer: 1,
+                exp: "Doğru ve derin solunum 'Diyafram' kasının aktif çalıştırılması ile yapılır."
+            },
+            {
+                q: "5. Karşısındaki kişiyle konuşurken sol elini gizleyen biri beden diline göre ne ifade ediyor olabilir?",
+                options: ["A) İş hayatıyla ilgili sakladığı bir şey olduğunu", "B) Kişisel duyguları veya özel hayatıyla ilgili bir şeyler gizlediğini", "C) Çok özgüvenli olduğunu", "D) Acıktığını"],
+                answer: 1,
+                exp: "Sol el gizleme kişisel/özel yaşamı, sağ el gizleme ise iş yaşamını saklama eğilimini gösterir."
+            },
+            {
+                q: "6. İki kişinin el sıkışırken avuçlarının dikey ve mengene gibi tutulması neyi ifade eder?",
+                options: ["A) Teslimiyeti", "B) Baskınlık kurma çabasını", "C) Güvenli, dengeli ve eşit bir iletişimi", "D) İletişimi bitirme arzusunu"],
+                answer: 2,
+                exp: "Avuçların dikey tutulması eşitliği, karşılıklı saygıyı ve dengeli el sıkışmayı temsil eder."
+            },
+            {
+                q: "7. Bakış yönü iki göz ile alın ortasında bir üçgen oluşturuyorsa bu bakış türü nedir?",
+                options: ["A) Sosyal Bakış", "B) Mahrem Bakış", "C) Resmi / İş Bakışı", "D) Olumsuz Bakış"],
+                answer: 2,
+                exp: "Alın ve gözler arasındaki üçgene bakmak 'Resmi / İş Bakışı' olarak tanımlanır."
+            },
+            {
+                q: "8. Beden dilinde bilinçli olarak KONTROL EDİLEMEYEN tek öge hangisidir?",
+                options: ["A) Ayak duruşu", "B) Göz bebeklerinin büyüklüğü", "C) Hand jestleri", "D) Oturuş biçimi"],
+                answer: 1,
+                exp: "Göz bebekleri otonom sinir sistemiyle çalışır, iradeli olarak küçültülüp büyütülemez."
+            },
+            {
+                q: "9. Kolları göğüste kavuşturmak beden dilinde genel olarak nasıl yorumlanır?",
+                options: ["A) İletişime açıklık ve özgüven", "B) Rahatsızlık, savunma veya iletişime kapalılık", "C) Karşıdakini onaylama", "D) Neşeli olma"],
+                answer: 1,
+                exp: "Kol kavuşturmak bariyer oluşturmaktır; savunma veya mesafeli duruş göstergesidir."
+            },
+            {
+                q: "10. Türkçede 'Düşünce' (fikir) ile 'Düşünce' (yere düşünce) kelimelerindeki anlam farkını sağlayan diksiyon unsuru nedir?",
+                options: ["A) Durak", "B) Vurgu", "C) Ulanma", "D) Diyafram"],
+                answer: 1,
+                exp: "Türkçede vurgunun düştüğü hece anlamı değiştirir (Vurgu fonemiktir)."
+            }
+        ];
+
+        const questionsGenel = [
+            {
+                q: "1. Aşağıdakilerden hangisi bir 'Soft Skill' (İnce Beceri) örneğidir?",
+                options: ["A) İleri düzey Excel kullanımı", "B) Kriz anında etkili problem çözme", "C) Muhasebe mevzuatı bilgisi", "D) Yabancı dil sertifikası"],
+                answer: 1,
+                exp: "Problem çözme davranışsal ve zihinsel bir süreçtir, Soft Skill kategorisine girer."
+            },
+            {
+                q: "2. Super'in kariyer aşamalarına göre meslek fikrinin geliştiği ve araştırmaların yapıldığı 14-24 yaş dönemi hangisidir?",
+                options: ["A) Sürdürme", "B) Keşfetme / Oluşum", "C) Yerleşme", "D) Ayrılma"],
+                answer: 1,
+                exp: "14-24 yaş aralığı Keşfetme/Oluşum aşamasıdır."
+            },
+            {
+                q: "3. 'Sınırsız Kariyer' modelinde başarının en temel kriteri nedir?",
+                options: ["A) Şirketteki kıdem yılı", "B) Bireyin piyasadaki istihdam edilebilirliği ve esnekliği", "C) Dikey hiyerarşik terfiler", "D) Tek bir unvana bağlı kalmak"],
+                answer: 1,
+                exp: "Sınırsız kariyer şirket sınıurlarını aşmayı ve sürekli istihdam edilebilir kalmayı esas alır."
+            },
+            {
+                q: "4. İletişim sürecinde göndericinin zihnindeki duygu veya düşünceyi simgelere dönüştürmesine ne ad verilir?",
+                options: ["A) Kodlama", "B) Dönüt", "C) Kod Açma", "D) Gürültü"],
+                answer: 0,
+                exp: "Fikrin söze/yazıya dönüştürülmesine 'Kodlama' denir."
+            },
+            {
+                q: "5. Mehrabian modeline göre ses tonu ve konuşma dinamiğinin iletişimdeki etkisi yüzde kaçtır?",
+                options: ["A) %7", "B) %55", "C) %38", "D) %90"],
+                answer: 2,
+                exp: "Ses tonu %38 etkiye sahiptir."
+            },
+            {
+                q: "6. Karşısındaki kişinin anlatımına 'Seni anlıyorum, haber alamayınca endişelendim' demek hangi dildir?",
+                options: ["A) Sen Dili", "B) Ben Dili", "C) Pasif Dili", "D) Otoriter Dili"],
+                answer: 1,
+                exp: "Kendi duygusunu incitmeden aktarmak 'Ben Dili' örneğidir."
+            },
+            {
+                q: "7. Konuşurken sağ elini saklayan bir kişinin beden dili uzmanlarınca neyi gizlediği varsayılır?",
+                options: ["A) Özel hayatını", "B) İş/Meslek yaşamı ile ilgili konuları", "C) Çocukluk anılarını", "D) Sağlık sorunlarını"],
+                answer: 1,
+                exp: "Sağ el iş yaşamını, sol el ise kişisel/özel hayatı temsil eder."
+            },
+            {
+                q: "8. Bakış açısı karşı tarafın gözleri ile ağız/çene arasına odaklanıyorsa bu bakış türü nedir?",
+                options: ["A) Mahrem Bakış", "B) İş Bakışı", "C) Sosyal Bakış", "D) Tehditkar Bakış"],
+                answer: 2,
+                exp: "Gözler ve burun/ağız çevresindeki üçgen 'Sosyal Bakış' alanıdır."
+            },
+            {
+                q: "9. Dilin bölgesel ve sınıfsal söyleyiş farklılıklarına ne ad verilir (Örn: Karadeniz konuşması)?",
+                options: ["A) Lehçe", "B) Ağız", "C) Şive", "D) Fonetik"],
+                answer: 1,
+                exp: "Bir ülke sınırları içindeki bölgesel sesletim farklarına 'Ağız' denir."
+            },
+            {
+                q: "10. Avucu tamamen yere bakacak şekilde el sıkan bir kişi karşı tarafa hangi mesajı verir?",
+                options: ["A) Teslimiyet", "B) Eşitlik", "C) Dominantlık / Hakimiyet kurma talebi", "D) Utangaçlık"],
+                answer: 2,
+                exp: "Avucun alta bakacak şekilde üste yerleştirilmesi hakimiyet kurma çabasıdır."
+            },
+            {
+                q: "11. Bireyin iş yaşamında tek bir kuruma bağlı olmadan birden fazla müşteriyle proje bazlı çalışması nedir?",
+                options: ["A) Geleneksel Kariyer", "B) Portföy Kariyer", "C) Dikey Kariyer", "D) Sabit Kariyer"],
+                answer: 1,
+                exp: "Çoklu müşteri ve proje yönetimi 'Portföy Kariyer'dir."
+            },
+            {
+                q: "12. Aşağıdakilerden hangisi bir 'Hard Skill' değildir?",
+                options: ["A) İspanyolca mütercim tercümanlık", "B) SQL veritabanı yazabilme", "C) Yüksek empati yeteneği", "D) Muhasebe bilanço çıkarma"],
+                answer: 2,
+                exp: "Empati bir Soft Skill'dir."
+            },
+            {
+                q: "13. Dinlerken süreci sabote eden 'Karşı Saldırı' hatası nedir?",
+                options: ["A) Susup dinlemek", "B) Eleştiriye başka bir eleştiriyle yanıt vermek", "C) Ağlamak", "D) Konuyu özetlemek"],
+                answer: 1,
+                exp: "Eleştiri karşısında hata kabul etmeyip karşıyı eleştirmek 'Karşı Saldırı' hatasıdır."
+            },
+            {
+                q: "14. İletişimi olumsuz etkileyen 'Zihin Okuma' nedir?",
+                options: ["A) Karşıdakinin düşüncelerini sormak", "B) Anlatılmayan şeyleri karşı tarafın bildiğini var saymak", "C) Kitap okumak", "D) Odaklanmak"],
+                answer: 1,
+                exp: "Zihin okuma, ifade etmeden karşı tarafın anlamasını beklemektir."
+            },
+            {
+                q: "15. Heyecanlı anlarda konuşmanın etkililiğini kaybetmesinin temel diksiyon sebebi nedir?",
+                options: ["A) Vurgunun unutulması", "B) Duraklamaların (soluk aralarının) atlanarak hızlı konuşulması", "C) Sesin kısılması", "D) Şiveli konuşulması"],
+                answer: 1,
+                exp: "Heyecan duraklamaların unutulmasına ve kontrolsüz hızlanmaya yol açar."
+            },
+            {
+                q: "16. Bir insanın göz bebeklerinin aşırı büyümesi (%450) neyi gösterir?",
+                options: ["A) Yoğun ilgi, hoşlanma veya heyecanı", "B) Yalan söylediğini", "C) Uykusuzluğu", "D) Öfkeyi"],
+                answer: 0,
+                exp: "Göz bebekleri duyulan yüksek ilgi veya hoşlanma durumunda büyür."
+            },
+            {
+                q: "17. Kariyer platosu (durağanlık) genel olarak hangi kariyer aşamasında ortaya çıkabilir?",
+                options: ["A) Keşfetme", "B) Sürdürme", "C) Büyüme", "D) Ayrılma"],
+                answer: 1,
+                exp: "Sürdürme döneminde tatmin veya tıkanmaya bağlı olarak kariyer platosu görülebilir."
+            },
+            {
+                q: "18. Aşağıdakilerden hangisi etkili sözlü iletişimin şartlarından biridir?",
+                options: ["A) Mümkün olduğunca hızlı konuşmak", "B) Söz, jest ve mimik uyumunu sağlamak", "C) Sürekli Sen dili kullanmak", "D) Bakışları kaçırmak"],
+                answer: 1,
+                exp: "Mesajın inandırıcılığı için sözel ifade ile beden dili uyumlu olmalıdır."
+            },
+            {
+                q: "19. Çuvaşça ve Yakutça Türkçenin nesi kabul edilir?",
+                options: ["A) Ağzı", "B) Şivesi", "C) Lehçesi", "D) Argo biçimi"],
+                answer: 2,
+                exp: "Çuvaşça ve Yakutça Türkçenin Lehçeleridir."
+            },
+            {
+                q: "20. 'Diksiyon' kavramının en kısa tanımı aşağıdakilerden hangisidir?",
+                options: ["A) Hızlı okuma sanatı", "B) Güzel ve etkili konuşmak için ses ve sözü yerli yerinde kullanma sanatı", "C) Yabancı dil öğrenme yöntemi", "D) Kitap yazma tekniği"],
+                answer: 1,
+                exp: "Diksiyon, ses ve sözün doğru ve uyumlu kullanılması sanatıdır."
+            }
+        ];
+
+        // QUIZ RENDER MOTORU
+        function renderQuiz(quizId, questions) {
+            const container = document.getElementById(quizId);
+            container.innerHTML = "";
+
+            questions.forEach((qData, qIndex) => {
+                const qCard = document.createElement("div");
+                qCard.className = "question-card";
+
+                const qText = document.createElement("div");
+                qText.className = "question-text";
+                qText.innerText = qData.q;
+                qCard.appendChild(qText);
+
+                const optsContainer = document.createElement("div");
+                optsContainer.className = "options-container";
+
+                const expDiv = document.createElement("div");
+                expDiv.className = "explanation";
+                expDiv.innerText = "Doğru Cevap: " + qData.options[qData.answer] + " \nAçıklama: " + qData.exp;
+
+                qData.options.forEach((optText, optIndex) => {
+                    const btn = document.createElement("button");
+                    btn.className = "option-btn";
+                    btn.innerText = optText;
+
+                    btn.onclick = function() {
+                        // Tüm butonları devre dışı bırak
+                        const allBtns = optsContainer.querySelectorAll(".option-btn");
+                        allBtns.forEach(b => b.disabled = true);
+
+                        if (optIndex === qData.answer) {
+                            btn.classList.add("correct");
+                        } else {
+                            btn.classList.add("incorrect");
+                            // Doğru şıkkı göster
+                            allBtns[qData.answer].classList.add("correct");
+                            // Açıklamayı göster
+                            expDiv.style.display = "block";
+                        }
+                    };
+
+                    optsContainer.appendChild(btn);
+                });
+
+                qCard.appendChild(optsContainer);
+                qCard.appendChild(expDiv);
+                container.appendChild(qCard);
+            });
+        }
+
+        // Sayfa Yüklendiğinde Quizleri Başlat
+        window.onload = function() {
+            renderQuiz("quiz-hafta1", questionsHafta1);
+            renderQuiz("quiz-hafta2", questionsHafta2);
+            renderQuiz("quiz-hafta3", questionsHafta3);
+            renderQuiz("quiz-hafta4", questionsHafta4);
+            renderQuiz("quiz-genel", questionsGenel);
+        };
+    </script>
+</body>
+</html>
